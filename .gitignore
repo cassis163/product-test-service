@@ -35,3 +35,5 @@ build/
 ### Custom ###
 **/gcp-credentials.json
 **/application.properties
+**/ssl-certificates/*
+!**/ssl-certificates/.gitkeep
