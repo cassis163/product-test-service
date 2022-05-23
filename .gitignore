@@ -1,4 +1,13 @@
+### Custom ###
+**/gcp-credentials.json
+**/application.properties
+**/ssl-certificates/*
+!**/ssl-certificates/.gitkeep
+
+### Spring Initializr ###
 HELP.md
+
+### Maven ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -31,9 +40,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Custom ###
-**/gcp-credentials.json
-**/application.properties
-**/ssl-certificates/*
-!**/ssl-certificates/.gitkeep
