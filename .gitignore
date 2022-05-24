@@ -3,6 +3,7 @@
 **/application.properties
 **/ssl-certificates/*
 !**/ssl-certificates/.gitkeep
+.env
 
 ### Spring Initializr ###
 HELP.md
