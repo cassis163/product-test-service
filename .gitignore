@@ -1,6 +1,5 @@
 ### Secret ###
 **/gcp-credentials.json
-**/application.properties
 **/ssl-certificates/*
 !**/ssl-certificates/.gitkeep
 .env
