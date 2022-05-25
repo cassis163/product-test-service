@@ -7,4 +7,4 @@ Uses a dockerized version of PostgreSQL.
 ### Run fresh
 Initializes a fresh PostgreSQL database.
 ### Run normally
-Continues the PostgreSQL database with data from `./postgres/data`.
+Continues the PostgreSQL database with data from `./postgres-data`.
