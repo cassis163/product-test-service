@@ -1,10 +1,10 @@
-package nl.omoda.productestservice;
+package nl.omoda.producttestservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProductestserviceApplicationTests {
+class ProducttestserviceApplicationTests {
 
 	@Test
 	void contextLoads() {
