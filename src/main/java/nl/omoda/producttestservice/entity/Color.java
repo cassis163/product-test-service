@@ -14,8 +14,7 @@ public class Color {
 
     protected Color() {}
 
-    public Color(Long id, String name) {
-        this.id = id;
+    public Color(String name) {
         this.name = name;
     }
 

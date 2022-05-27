@@ -4,43 +4,62 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class ProductOption {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long productId;
-    private Long colorId;
+
+    @ManyToOne()
+    @JoinColumn(name = "productId")
+    private Product product;
+
+    @ManyToOne()
+    @JoinColumn(name = "colorId")
+    private Color color;
+
     private String name;
 
-    protected ProductOption() {}
+    protected ProductOption() {
+    }
 
-    public ProductOption(Long id, Long productId, Long colorId, String name) {
-        this.id = id;
-        this.productId = productId;
-        this.colorId = colorId;
+    public ProductOption(Product product, Color color, String name) {
+        this.product = product;
+        this.color = color;
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", product='" + getProduct() + "'" +
+            ", color='" + getColor() + "'" +
+            ", name='" + getName() + "'" +
+            "}";
     }
 
     public Long getId() {
         return this.id;
     }
 
-    public Long getProductId() {
-        return this.productId;
+    public Product getProduct() {
+        return this.product;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public Long getColorId() {
-        return this.colorId;
+    public Color getColor() {
+        return this.color;
     }
 
-    public void setColorId(Long colorId) {
-        this.colorId = colorId;
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public String getName() {
@@ -51,28 +70,4 @@ public class ProductOption {
         this.name = name;
     }
 
-    public ProductOption productId(Long productId) {
-        setProductId(productId);
-        return this;
-    }
-
-    public ProductOption colorId(Long colorId) {
-        setColorId(colorId);
-        return this;
-    }
-
-    public ProductOption name(String name) {
-        setName(name);
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", productId='" + getProductId() + "'" +
-                ", colorId='" + getColorId() + "'" +
-                ", name='" + getName() + "'" +
-                "}";
-    }
 }
