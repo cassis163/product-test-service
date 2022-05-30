@@ -5,10 +5,12 @@ import java.util.Random;
 
 import com.google.common.collect.Lists;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import nl.omoda.producttestservice.entity.Color;
 import nl.omoda.producttestservice.entity.Product;
+import nl.omoda.producttestservice.messaging.gateway.ProductOutboundGateway;
 import nl.omoda.producttestservice.repository.ColorRepository;
 import nl.omoda.producttestservice.repository.ProductRepository;
 
@@ -21,6 +23,9 @@ public class ProductService {
     private final ProductRepository repository;
     private final ColorRepository colorRepository;
     private final ProductOptionService productOptionService;
+
+    @Autowired
+    private ProductOutboundGateway messagingGateway;
 
     public ProductService(ProductRepository productRepository, ColorRepository colorRepository, ProductOptionService productOptionService) {
         this.repository = productRepository;
@@ -55,6 +60,6 @@ public class ProductService {
     }
 
     private void publishPubSubMessage() {
-
+        this.messagingGateway.sendToPubsub("koek");
     }
 }
