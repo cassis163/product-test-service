@@ -1,11 +1,14 @@
 package nl.omoda.producttestservice.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import nl.omoda.producttestservice.entity.Color;
 import nl.omoda.producttestservice.entity.Product;
 import nl.omoda.producttestservice.entity.ProductOption;
+import nl.omoda.producttestservice.messaging.event.CrudEvent;
+import nl.omoda.producttestservice.messaging.event.CrudType;
 import nl.omoda.producttestservice.messaging.gateway.ProductOptionOutboundGateway;
 import nl.omoda.producttestservice.repository.ProductOptionRepository;
 
@@ -23,12 +26,12 @@ public class ProductOptionService {
     public ProductOption createProductOption(Product product, Color color, String name) {
         ProductOption productOption = new ProductOption(product, color, name);
         this.repository.save(productOption);
-        this.publishPubSubMessage();
+        this.publishPubSubMessage(new CrudEvent<ProductOption>(CrudType.CREATE, productOption));
 
         return productOption;
     }
 
-    private void publishPubSubMessage() {
-        this.messagingGateway.sendToPubsub("test");
+    private void publishPubSubMessage(CrudEvent<ProductOption> event) {
+        this.messagingGateway.sendToPubsub(MessageBuilder.withPayload(event).build());
     }
 }

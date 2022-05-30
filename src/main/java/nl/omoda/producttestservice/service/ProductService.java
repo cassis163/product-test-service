@@ -6,10 +6,13 @@ import java.util.Random;
 import com.google.common.collect.Lists;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import nl.omoda.producttestservice.entity.Color;
 import nl.omoda.producttestservice.entity.Product;
+import nl.omoda.producttestservice.messaging.event.CrudEvent;
+import nl.omoda.producttestservice.messaging.event.CrudType;
 import nl.omoda.producttestservice.messaging.gateway.ProductOutboundGateway;
 import nl.omoda.producttestservice.repository.ColorRepository;
 import nl.omoda.producttestservice.repository.ProductRepository;
@@ -36,7 +39,7 @@ public class ProductService {
     public Product createProduct(String name) {
         Product product = new Product(name);
         this.repository.save(product);
-        this.publishPubSubMessage();
+        this.publishPubSubMessage(new CrudEvent<Product>(CrudType.CREATE, product));
         this.createProductOptions(product);
 
         return product;
@@ -45,7 +48,6 @@ public class ProductService {
     private void createProductOptions(Product product) {
         for (int i = 0; i < ProductService.AMOUNT_OF_OPTIONS; i++) {
             this.productOptionService.createProductOption(product, this.getRandomColor(), this.getProductOptionName(i));
-            this.publishPubSubMessage();
         }
     }
 
@@ -59,7 +61,7 @@ public class ProductService {
         return String.format("Option %s", String.valueOf(index + 1));
     }
 
-    private void publishPubSubMessage() {
-        this.messagingGateway.sendToPubsub("koek");
+    private void publishPubSubMessage(CrudEvent<Product> event) {
+        this.messagingGateway.sendToPubsub(MessageBuilder.withPayload(event).build());
     }
 }
