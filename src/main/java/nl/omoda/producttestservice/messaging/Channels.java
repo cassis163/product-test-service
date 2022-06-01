@@ -1,6 +1,12 @@
 package nl.omoda.producttestservice.messaging;
 
-public abstract class Channels {
-    public static final String PRODUCT = "productOutputChannel";
-    public static final String PRODUCT_OPTION = "productOptionOutputChannel";
+import org.springframework.cloud.stream.annotation.Output;
+import org.springframework.messaging.MessageChannel;
+
+public interface Channels {
+    @Output("product")
+    MessageChannel outgoingProduct();
+
+    @Output("product-option")
+    MessageChannel outgoingProductOption();
 }

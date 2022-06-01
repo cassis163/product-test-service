@@ -5,15 +5,13 @@ import java.util.Random;
 
 import com.google.common.collect.Lists;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import nl.omoda.producttestservice.entity.Color;
 import nl.omoda.producttestservice.entity.Product;
+import nl.omoda.producttestservice.messaging.Publisher;
 import nl.omoda.producttestservice.messaging.event.CrudEvent;
 import nl.omoda.producttestservice.messaging.event.CrudType;
-import nl.omoda.producttestservice.messaging.gateway.ProductOutboundGateway;
 import nl.omoda.producttestservice.repository.ColorRepository;
 import nl.omoda.producttestservice.repository.ProductRepository;
 
@@ -27,13 +25,13 @@ public class ProductService {
     private final ColorRepository colorRepository;
     private final ProductOptionService productOptionService;
 
-    @Autowired
-    private ProductOutboundGateway messagingGateway;
+    private final Publisher publisher;
 
-    public ProductService(ProductRepository productRepository, ColorRepository colorRepository, ProductOptionService productOptionService) {
+    public ProductService(ProductRepository productRepository, ColorRepository colorRepository, ProductOptionService productOptionService, Publisher publisher) {
         this.repository = productRepository;
         this.colorRepository = colorRepository;
         this.productOptionService = productOptionService;
+        this.publisher = publisher;
     }
 
     public Product createProduct(String name) {
@@ -62,6 +60,6 @@ public class ProductService {
     }
 
     private void publishPubSubMessage(CrudEvent<Product> event) {
-        this.messagingGateway.sendToPubsub(MessageBuilder.withPayload(event).build());
+        this.publisher.publishProductMessage(event);
     }
 }
