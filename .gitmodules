@@ -1,0 +1,3 @@
+[submodule "postgres-product-db"]
+	path = postgres-product-db
+	url = git@github.com:cassis163/postgres-test-db.git
