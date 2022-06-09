@@ -21,4 +21,6 @@ INSERT INTO color VALUES
     (2, 'Blue'),
     (3, 'Yellow'),
     (4, 'Green'),
-    (5, 'White')
+    (5, 'White');
+
+CREATE PUBLICATION product_publication FOR TABLE product, product_option;
