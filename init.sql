@@ -16,11 +16,15 @@ CREATE TABLE product_option(
     CONSTRAINT fk_color FOREIGN KEY(color_id) REFERENCES color(id)
 );
 
-INSERT INTO color VALUES
+INSERT INTO
+    color
+VALUES
     (1, 'Red'),
     (2, 'Blue'),
     (3, 'Yellow'),
     (4, 'Green'),
     (5, 'White');
 
-CREATE PUBLICATION product_publication FOR TABLE product, product_option;
+CREATE PUBLICATION product_publication FOR TABLE product;
+
+CREATE PUBLICATION product_option_publication FOR TABLE product_option;
