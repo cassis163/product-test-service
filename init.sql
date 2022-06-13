@@ -24,7 +24,3 @@ VALUES
     (3, 'Yellow'),
     (4, 'Green'),
     (5, 'White');
-
-CREATE PUBLICATION product_publication FOR TABLE product;
-
-CREATE PUBLICATION product_option_publication FOR TABLE product_option;
